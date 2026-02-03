@@ -127,6 +127,15 @@ export const searchDocuments = async (query, topK = 5) => {
   try {
     const collection = await getOrCreateCollection('documents');
 
+    // Check if collection has any documents
+    const count = await collection.count();
+    console.log(`ChromaDB collection 'documents' has ${count} chunks`);
+
+    if (count === 0) {
+      console.log('No documents in ChromaDB. Please upload documents first.');
+      return [];
+    }
+
     // Generate embedding for query
     const queryEmbedding = await generateEmbeddings([query]);
 
@@ -135,6 +144,8 @@ export const searchDocuments = async (query, topK = 5) => {
       queryEmbeddings: queryEmbedding,
       nResults: topK,
     });
+
+    console.log(`Search returned ${results.ids?.[0]?.length || 0} results`);
 
     // Format results
     const formattedResults = [];

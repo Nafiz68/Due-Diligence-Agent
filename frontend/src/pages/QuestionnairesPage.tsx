@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useDropzone } from 'react-dropzone';
-import { FileSpreadsheet, Upload, Trash2, AlertCircle, CheckCircle, Clock } from 'lucide-react';
-import { questionnairesApi } from '@/lib/api';
+import { FileSpreadsheet, Upload, Trash2, AlertCircle, CheckCircle, Clock, Play } from 'lucide-react';
+import { questionnairesApi, answersApi } from '@/lib/api';
 
 export function QuestionnairesPage() {
   const [uploadError, setUploadError] = useState<string | null>(null);
+  const [generateSuccess, setGenerateSuccess] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
   // Fetch questionnaires
@@ -34,6 +35,18 @@ export function QuestionnairesPage() {
     mutationFn: questionnairesApi.delete,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['questionnaires'] });
+    },
+  });
+
+  // Generate answers mutation
+  const generateAnswersMutation = useMutation({
+    mutationFn: answersApi.generateForQuestionnaire,
+    onSuccess: (data) => {
+      setGenerateSuccess('Answer generation started! Check the Review page to see progress.');
+      setTimeout(() => setGenerateSuccess(null), 5000);
+    },
+    onError: (error: any) => {
+      setUploadError(error.response?.data?.message || 'Failed to generate answers');
     },
   });
 
@@ -118,6 +131,15 @@ export function QuestionnairesPage() {
           </div>
         )}
 
+        {generateSuccess && (
+          <div className="card p-4 mb-6 bg-green-50 border-green-200">
+            <div className="flex items-center">
+              <CheckCircle className="w-5 h-5 text-green-500 mr-3" />
+              <span className="text-green-700">{generateSuccess}</span>
+            </div>
+          </div>
+        )}
+
         {/* Questionnaires List */}
         <div className="card">
           <div className="p-6 border-b border-gray-200">
@@ -159,16 +181,35 @@ export function QuestionnairesPage() {
                           <span className="ml-2 text-sm text-gray-600 capitalize">
                             {questionnaire.status}
                           </span>
+                          {questionnaire.answeredCount > 0 && (
+                            <span className="ml-4 text-sm text-green-600">
+                              {questionnaire.answeredCount} answers generated
+                            </span>
+                          )}
                         </div>
                       </div>
                     </div>
-                    <button
-                      onClick={() => deleteMutation.mutate(questionnaire._id)}
-                      className="ml-4 p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
-                      title="Delete"
-                    >
-                      <Trash2 className="w-5 h-5" />
-                    </button>
+                    <div className="flex items-center space-x-2">
+                      {questionnaire.status === 'completed' && (
+                        <button
+                          onClick={() => generateAnswersMutation.mutate(questionnaire._id)}
+                          disabled={generateAnswersMutation.isPending}
+                          className="btn btn-primary flex items-center space-x-2"
+                        >
+                          <Play className="w-4 h-4" />
+                          <span>
+                            {generateAnswersMutation.isPending ? 'Starting...' : 'Generate Answers'}
+                          </span>
+                        </button>
+                      )}
+                      <button
+                        onClick={() => deleteMutation.mutate(questionnaire._id)}
+                        className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                        title="Delete"
+                      >
+                        <Trash2 className="w-5 h-5" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}

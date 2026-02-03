@@ -139,9 +139,7 @@ const parsePDF = async (filePath) => {
 
     return questions;
   } catch (error) {
-    consoleif (questionnaire.fileType === 'pdf') {
-      rawData = await parsePDF(questionnaire.filePath);
-    } else .error('Error parsing PDF:', error);
+    console.error('Error parsing PDF:', error);
     throw new Error('Failed to parse PDF file');
   }
 };
@@ -243,6 +241,8 @@ export const parseQuestionnaire = async (questionnaireId) => {
       rawData = await parseCSV(questionnaire.filePath);
     } else if (['xlsx', 'xls'].includes(questionnaire.fileType)) {
       rawData = await parseExcel(questionnaire.filePath);
+    } else if (questionnaire.fileType === 'pdf') {
+      rawData = await parsePDF(questionnaire.filePath);
     } else {
       throw new Error('Unsupported file type');
     }

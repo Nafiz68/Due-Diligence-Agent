@@ -21,10 +21,15 @@ export const generateAnswer = async (questionId, options = {}) => {
     const topK = options.topK || 5;
     const relevantChunks = await searchDocuments(question.questionText, topK);
 
+    console.log(`Found ${relevantChunks.length} relevant chunks for question: ${question.questionText.substring(0, 100)}...`);
+
     if (relevantChunks.length === 0) {
-      throw new Error(
-        'No relevant documents found. Please upload company documents first.'
-      );
+      // Check if any documents exist in MongoDB
+      const docCount = await Document.countDocuments();
+      const message = docCount === 0 
+        ? 'No documents found in database. Please upload company documents from the Documents page.'
+        : 'No relevant documents found for this question. The ChromaDB may need to be reloaded with documents.';
+      throw new Error(message);
     }
 
     // Prepare context from relevant chunks

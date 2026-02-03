@@ -24,7 +24,7 @@ const questionnaireSchema = new mongoose.Schema(
     fileType: {
       type: String,
       required: true,
-      enum: ['csv', 'xlsx', 'xls'],
+      enum: ['csv', 'xlsx', 'xls', 'pdf'],
     },
     status: {
       type: String,
