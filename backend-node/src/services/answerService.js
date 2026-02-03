@@ -3,6 +3,7 @@ import { searchDocuments } from './documentService.js';
 import Answer from '../models/Answer.js';
 import Question from '../models/Question.js';
 import Document from '../models/Document.js';
+import Questionnaire from '../models/Questionnaire.js';
 import cliProgress from 'cli-progress';
 
 /**
@@ -42,7 +43,7 @@ export const generateAnswer = async (questionId, options = {}) => {
       .join('\n\n');
 
     // Prepare prompt for AI
-    const prompt = `You are an AI assistant helping with due diligence questionnaires. Based on the provided company documents, answer the following question accurately and concisely.
+    const prompt = `You are an AI assistant helping with due diligence questionnaires. Based on the provided company documents, answer the following question accurately and completely.
 
 Question: ${question.questionText}
 
@@ -53,10 +54,12 @@ Relevant Document Excerpts:
 ${context}
 
 Instructions:
-1. Provide a clear and accurate answer based on the document excerpts
-2. If the answer is not found in the documents, state that explicitly
-3. Keep the answer concise but complete
-4. Format the answer professionally
+1. Read the ENTIRE question carefully and address ALL parts of it
+2. Provide a clear, accurate, and COMPLETE answer based on the document excerpts
+3. If the answer is not found in the documents, state: "Information not found in provided documents"
+4. Include specific details, numbers, dates, and references when available
+5. Structure multi-part answers with bullet points or paragraphs as appropriate
+6. Be thorough - do not truncate or summarize critical information
 
 Answer:`;
 
@@ -66,7 +69,7 @@ Answer:`;
         {
           role: 'system',
           content:
-            'You are an expert due diligence analyst. Provide accurate, well-structured answers based on the provided documents.',
+            'You are an expert due diligence analyst. Provide accurate, complete, and well-structured answers based on the provided documents. Address every part of the question thoroughly.',
         },
         {
           role: 'user',
@@ -74,7 +77,7 @@ Answer:`;
         },
       ],
       {
-        temperature: 0.3, // Lower temperature for more factual responses
+        temperature: 0.2, // Lower temperature for more factual, focused responses
         maxTokens: 1024,
       }
     );
@@ -161,11 +164,22 @@ export const generateAnswersForQuestionnaire = async (
     progressBar.start(questions.length, 0);
 
     // Generate answers sequentially to avoid rate limits
-    for (const question of questions) {
+    for (let i = 0; i < questions.length; i++) {
+      const question = questions[i];
       try {
         const answer = await generateAnswer(question._id, options);
         results.generated++;
         results.answers.push(answer);
+        
+        // Update questionnaire answeredCount
+        await Questionnaire.findByIdAndUpdate(questionnaireId, {
+          answeredCount: results.generated
+        });
+
+        // Add delay between requests to respect rate limits (0.5 seconds)
+        if (i < questions.length - 1) {
+          await new Promise(resolve => setTimeout(resolve, 500));
+        }
       } catch (error) {
         results.failed++;
         results.errors.push({

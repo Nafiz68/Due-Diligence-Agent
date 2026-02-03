@@ -27,6 +27,11 @@ export const answerQueue = new Queue('answer-generation', {
     host: process.env.REDIS_HOST || 'localhost',
     port: process.env.REDIS_PORT || 6379,
   },
+  settings: {
+    stalledInterval: 300000, // 5 minutes before considering job stalled
+    maxStalledCount: 2, // Retry stalled jobs twice
+    lockDuration: 300000, // Hold job lock for 5 minutes
+  },
 });
 
 // Document processing job handler
@@ -73,8 +78,8 @@ questionnaireQueue.process(async (job) => {
   }
 });
 
-// Answer generation job handler
-answerQueue.process(async (job) => {
+// Answer generation job handler (with extended timeout)
+answerQueue.process(1, async (job) => {
   const { questionnaireId, questionId } = job.data;
 
   console.log(

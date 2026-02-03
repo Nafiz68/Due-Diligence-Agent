@@ -9,13 +9,14 @@ export function QuestionnairesPage() {
   const [generateSuccess, setGenerateSuccess] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
-  // Fetch questionnaires
+  // Fetch questionnaires with auto-refresh
   const { data: questionnaires, isLoading } = useQuery({
     queryKey: ['questionnaires'],
     queryFn: async () => {
       const result = await questionnairesApi.getAll();
       return result.data;
     },
+    refetchInterval: 2000, // Refresh every 2 seconds
   });
 
   // Upload mutation

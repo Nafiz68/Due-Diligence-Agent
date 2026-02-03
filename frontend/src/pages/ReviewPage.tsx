@@ -6,13 +6,14 @@ import { questionnairesApi, answersApi } from '@/lib/api';
 export function ReviewPage() {
   const [selectedQuestionnaireId, setSelectedQuestionnaireId] = useState<string | null>(null);
 
-  // Fetch questionnaires
+  // Fetch questionnaires with auto-refresh
   const { data: questionnairesData } = useQuery({
     queryKey: ['questionnaires'],
     queryFn: async () => {
       const result = await questionnairesApi.getAll();
       return result.data;
     },
+    refetchInterval: 2000, // Refresh every 2 seconds
   });
 
   // Fetch answers for selected questionnaire
