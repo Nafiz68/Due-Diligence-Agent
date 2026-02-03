@@ -17,7 +17,7 @@ const groqClient = new Groq({
 export const generateCompletion = async (messages, options = {}) => {
   try {
     const completion = await groqClient.chat.completions.create({
-      model: options.model || 'llama-3.1-70b-versatile',
+      model: options.model || 'llama-3.3-70b-versatile',
       messages,
       temperature: options.temperature || 0.7,
       max_tokens: options.maxTokens || 2048,

@@ -3,6 +3,7 @@ import { searchDocuments } from './documentService.js';
 import Answer from '../models/Answer.js';
 import Question from '../models/Question.js';
 import Document from '../models/Document.js';
+import cliProgress from 'cli-progress';
 
 /**
  * Generate answer for a question using AI
@@ -148,6 +149,17 @@ export const generateAnswersForQuestionnaire = async (
       errors: [],
     };
 
+    // Create progress bar
+    const progressBar = new cliProgress.SingleBar({
+      format: 'Generating Answers |{bar}| {percentage}% | {value}/{total} Questions | ETA: {eta}s',
+      barCompleteChar: '\u2588',
+      barIncompleteChar: '\u2591',
+      hideCursor: true
+    });
+
+    console.log(`\n📝 Starting answer generation for ${questions.length} questions...\n`);
+    progressBar.start(questions.length, 0);
+
     // Generate answers sequentially to avoid rate limits
     for (const question of questions) {
       try {
@@ -162,7 +174,12 @@ export const generateAnswersForQuestionnaire = async (
           error: error.message,
         });
       }
+      progressBar.update(results.generated + results.failed);
     }
+
+    progressBar.stop();
+    console.log(`\n✅ Completed: ${results.generated} generated, ${results.failed} failed\n`);
+
 
     return results;
   } catch (error) {
