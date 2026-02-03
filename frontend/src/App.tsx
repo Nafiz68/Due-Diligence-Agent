@@ -1,8 +1,28 @@
-export default function App() {
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Layout } from './components/layout/Layout';
+import { HomePage } from './pages/HomePage';
+import { DocumentsPage } from './pages/DocumentsPage';
+import { QuestionnairesPage } from './pages/QuestionnairesPage';
+import { ReviewPage } from './pages/ReviewPage';
+import { EvaluationPage } from './pages/EvaluationPage';
+import './index.css';
+
+function App() {
   return (
-    <main>
-      <h1>Questionnaire Agent</h1>
-      <p>Project skeleton ready for implementation.</p>
-    </main>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="documents" element={<DocumentsPage />} />
+          <Route path="questionnaires" element={<QuestionnairesPage />} />
+          <Route path="review" element={<ReviewPage />} />
+          <Route path="evaluation" element={<EvaluationPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
+
+export default App;
+
