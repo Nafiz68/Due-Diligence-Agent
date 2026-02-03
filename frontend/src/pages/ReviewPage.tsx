@@ -1,10 +1,36 @@
 import React, { useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { CheckCircle, FileText, AlertCircle, Clock, ExternalLink } from 'lucide-react';
+import { CheckCircle, FileText, AlertCircle, Clock, ExternalLink, Download, FileSpreadsheet, FileType } from 'lucide-react';
 import { questionnairesApi, answersApi } from '@/lib/api';
 
 export function ReviewPage() {
   const [selectedQuestionnaireId, setSelectedQuestionnaireId] = useState<string | null>(null);
+  const [downloading, setDownloading] = useState(false);
+
+  const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+
+  const handleExport = async (format: 'csv' | 'excel' | 'pdf') => {
+    if (!selectedQuestionnaireId || downloading) return;
+    
+    try {
+      setDownloading(true);
+      const url = `${API_BASE_URL}/export/questionnaire/${selectedQuestionnaireId}/${format}`;
+      
+      // Create a temporary anchor element to trigger download
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `questionnaire_${format}.${format === 'excel' ? 'xlsx' : format}`;
+      link.target = '_blank';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Export error:', error);
+      alert('Failed to export. Please make sure the server is running and answers are generated.');
+    } finally {
+      setTimeout(() => setDownloading(false), 2000);
+    }
+  };
 
   // Fetch questionnaires with auto-refresh
   const { data: questionnairesData } = useQuery({
@@ -52,11 +78,42 @@ export function ReviewPage() {
   return (
     <div className="p-8">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Review Answers</h1>
-          <p className="mt-2 text-gray-600">
-            Review AI-generated answers with citations and confidence scores
-          </p>
+        <div className="mb-8 flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">Review Answers</h1>
+            <p className="mt-2 text-gray-600">
+              Review AI-generated answers with citations and confidence scores
+            </p>
+          </div>
+          
+          {selectedQuestionnaireId && (
+            <div className="flex gap-2">
+              <button
+                onClick={() => handleExport('csv')}
+                disabled={downloading}
+                className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <FileSpreadsheet className="w-4 h-4" />
+                {downloading ? 'Downloading...' : 'Export CSV'}
+              </button>
+              <button
+                onClick={() => handleExport('excel')}
+                disabled={downloading}
+                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <FileSpreadsheet className="w-4 h-4" />
+                {downloading ? 'Downloading...' : 'Export Excel'}
+              </button>
+              <button
+                onClick={() => handleExport('pdf')}
+                disabled={downloading}
+                className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <FileType className="w-4 h-4" />
+                {downloading ? 'Downloading...' : 'Export PDF'}
+              </button>
+            </div>
+          )}
         </div>
 
         <div className="grid grid-cols-12 gap-6">

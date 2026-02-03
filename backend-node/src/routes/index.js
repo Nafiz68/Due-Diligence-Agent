@@ -3,6 +3,7 @@ import documentRoutes from './documentRoutes.js';
 import questionnaireRoutes from './questionnaireRoutes.js';
 import answerRoutes from './answerRoutes.js';
 import evaluationRoutes from './evaluationRoutes.js';
+import exportRoutes from './exportRoutes.js';
 
 const router = express.Router();
 
@@ -10,6 +11,7 @@ router.use('/documents', documentRoutes);
 router.use('/questionnaires', questionnaireRoutes);
 router.use('/answers', answerRoutes);
 router.use('/evaluations', evaluationRoutes);
+router.use('/export', exportRoutes);
 
 // Health check
 router.get('/health', (req, res) => {

@@ -144,13 +144,35 @@ export const generateAnswersForQuestionnaire = async (
       throw new Error('No questions found for this questionnaire');
     }
 
+    // Check which questions already have answers (for resume functionality)
+    const existingAnswers = await Answer.find({ 
+      questionnaire: questionnaireId 
+    }).select('question');
+    
+    const answeredQuestionIds = new Set(
+      existingAnswers.map(a => a.question.toString())
+    );
+
+    // Filter out questions that already have answers
+    const questionsToProcess = questions.filter(
+      q => !answeredQuestionIds.has(q._id.toString())
+    );
+
+    const alreadyAnswered = questions.length - questionsToProcess.length;
+
     const results = {
       total: questions.length,
+      alreadyAnswered,
       generated: 0,
       failed: 0,
       answers: [],
       errors: [],
     };
+
+    if (questionsToProcess.length === 0) {
+      console.log(`\n✅ All ${questions.length} questions already have answers!\n`);
+      return results;
+    }
 
     // Create progress bar
     const progressBar = new cliProgress.SingleBar({
@@ -160,12 +182,15 @@ export const generateAnswersForQuestionnaire = async (
       hideCursor: true
     });
 
-    console.log(`\n📝 Starting answer generation for ${questions.length} questions...\n`);
-    progressBar.start(questions.length, 0);
+    console.log(`\n📝 Resuming answer generation...`);
+    console.log(`   Already answered: ${alreadyAnswered}/${questions.length}`);
+    console.log(`   Remaining: ${questionsToProcess.length}\n`);
+    
+    progressBar.start(questionsToProcess.length, 0);
 
     // Generate answers sequentially to avoid rate limits
-    for (let i = 0; i < questions.length; i++) {
-      const question = questions[i];
+    for (let i = 0; i < questionsToProcess.length; i++) {
+      const question = questionsToProcess[i];
       try {
         const answer = await generateAnswer(question._id, options);
         results.generated++;
@@ -173,11 +198,11 @@ export const generateAnswersForQuestionnaire = async (
         
         // Update questionnaire answeredCount
         await Questionnaire.findByIdAndUpdate(questionnaireId, {
-          answeredCount: results.generated
+          answeredCount: alreadyAnswered + results.generated
         });
 
         // Add delay between requests to respect rate limits (0.5 seconds)
-        if (i < questions.length - 1) {
+        if (i < questionsToProcess.length - 1) {
           await new Promise(resolve => setTimeout(resolve, 500));
         }
       } catch (error) {
@@ -192,7 +217,8 @@ export const generateAnswersForQuestionnaire = async (
     }
 
     progressBar.stop();
-    console.log(`\n✅ Completed: ${results.generated} generated, ${results.failed} failed\n`);
+    console.log(`\n✅ Completed: ${results.generated} generated, ${results.failed} failed`);
+    console.log(`   Total progress: ${alreadyAnswered + results.generated}/${questions.length} answered\n`);
 
 
     return results;
