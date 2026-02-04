@@ -321,6 +321,36 @@ Question,Category,Subcategory
 - Use `data/ILPA_Due_Diligence_Questionnaire_v1.2.pdf` as the questionnaire input
   and the other PDFs as reference documents for answering.
 
+## 🚀 Deployment
+
+### Production Deployment
+
+Deploy to the cloud for 24/7 access:
+- **Backend**: Render.com (Node.js + Redis + Worker)
+- **Frontend**: Vercel (React + Vite)
+- **Database**: MongoDB Atlas (already configured)
+
+📖 **See [QUICK_DEPLOY.md](QUICK_DEPLOY.md)** for step-by-step instructions (5 minutes)
+
+📚 **See [DEPLOYMENT.md](DEPLOYMENT.md)** for detailed guide with troubleshooting
+
+### Local Development
+
+Your local setup still works perfectly:
+```bash
+# Terminal 1: ChromaDB
+python start_chroma.py
+
+# Terminal 2: Backend
+cd backend-node && npm start
+
+# Terminal 3: Worker
+cd backend-node && npm run worker
+
+# Terminal 4: Frontend
+cd frontend && npm run dev
+```
+
 ## 🤝 Contributing
 
 1. Fork the repository
