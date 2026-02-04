@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Upload } from 'lucide-react';
+import { Upload, FileText, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { documentsApi } from '@/lib/api';
 import { DocumentUpload } from '@/components/documents/DocumentUpload';
 import { DocumentList } from '@/components/documents/DocumentList';
@@ -38,36 +39,71 @@ export function DocumentsPage() {
   };
 
   return (
-    <div className="p-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Company Documents</h1>
-          <p className="mt-2 text-gray-600">
-            Upload PDF documents for AI-powered questionnaire answering
-          </p>
-        </div>
-
-        {uploadStatus && (
-          <Alert
-            type={uploadStatus.type}
-            message={uploadStatus.message}
-            onClose={() => setUploadStatus(null)}
-          />
-        )}
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
-          <div>
-            <div className="card p-6">
-              <div className="flex items-center mb-4">
-                <Upload className="w-6 h-6 text-primary-600 mr-2" />
-                <h2 className="text-xl font-semibold">Upload Documents</h2>
+    <div className="min-h-screen bg-white">
+      <div className="p-8">
+        <div className="max-w-7xl mx-auto">
+          {/* Header Section */}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-12"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-3 bg-black rounded-2xl shadow-lg">
+                <FileText className="w-8 h-8 text-white" />
               </div>
-              <DocumentUpload onUpload={handleUpload} />
+              <div>
+                <h1 className="text-4xl font-bold text-black">
+                  Company Documents
+                </h1>
+                <p className="text-gray-600 mt-1 flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-gray-900" />
+                  Upload PDF documents for AI-powered questionnaire answering
+                </p>
+              </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div>
-            <DocumentList />
+          {uploadStatus && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-6"
+            >
+              <Alert
+                type={uploadStatus.type}
+                message={uploadStatus.message}
+                onClose={() => setUploadStatus(null)}
+              />
+            </motion.div>
+          )}
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Upload Section */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 }}
+            >
+              <div className="bg-white rounded-3xl shadow-xl p-8 border-2 border-gray-900">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-2 bg-gray-100 rounded-xl border-2 border-gray-900">
+                    <Upload className="w-6 h-6 text-black" />
+                  </div>
+                  <h2 className="text-2xl font-bold text-gray-900">Upload Documents</h2>
+                </div>
+                <DocumentUpload onUpload={handleUpload} />
+              </div>
+            </motion.div>
+
+            {/* Documents List Section */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <DocumentList />
+            </motion.div>
           </div>
         </div>
       </div>
