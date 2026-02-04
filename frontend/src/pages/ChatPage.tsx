@@ -77,7 +77,7 @@ export function ChatPage() {
 
   return (
     <ErrorBoundary>
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="min-h-screen bg-white">
         <div className="p-8">
           <div className="max-w-7xl mx-auto">
           {/* Header */}
@@ -87,10 +87,10 @@ export function ChatPage() {
             className="mb-8"
           >
             <div className="flex items-center gap-3 mb-2">
-              <div className="p-3 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl shadow-lg">
+              <div className="p-3 bg-black rounded-2xl shadow-lg">
                 <MessageSquare className="w-8 h-8 text-white" />
               </div>
-              <h1 className="text-4xl font-bold text-gray-900">Document Chat</h1>
+              <h1 className="text-4xl font-bold text-black">Document Chat</h1>
             </div>
             <p className="text-gray-600 ml-1">Ask questions about your uploaded documents and get instant answers with citations</p>
           </motion.div>
@@ -108,16 +108,16 @@ export function ChatPage() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={handleCreateSession}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg transition-all"
+                className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-black hover:bg-gray-900 text-white font-semibold rounded-xl shadow-lg transition-all"
               >
                 <Plus className="w-5 h-5" />
                 New Chat
               </motion.button>
 
               {/* Chat Sessions */}
-              <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+              <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-gray-900">
                 <h2 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <MessageSquare className="w-5 h-5 text-blue-600" />
+                  <MessageSquare className="w-5 h-5 text-black" />
                   Sessions
                 </h2>
                 <div className="space-y-2 max-h-96 overflow-y-auto">
@@ -132,17 +132,19 @@ export function ChatPage() {
                         transition={{ delay: idx * 0.05 }}
                         className={`p-3 rounded-lg cursor-pointer transition-all group ${
                           selectedSessionId === session.sessionId
-                            ? 'bg-blue-50 border border-blue-300'
+                            ? 'bg-gray-900 border border-gray-900'
                             : 'hover:bg-gray-50 border border-transparent'
                         }`}
                         onClick={() => setSelectedSessionId(session.sessionId)}
                       >
                         <p className={`text-sm font-semibold truncate ${
-                          selectedSessionId === session.sessionId ? 'text-blue-900' : 'text-gray-800'
+                          selectedSessionId === session.sessionId ? 'text-white' : 'text-gray-800'
                         }`}>
                           {session.title}
                         </p>
-                        <p className="text-xs text-gray-500 mt-1">
+                        <p className={`text-xs mt-1 ${
+                          selectedSessionId === session.sessionId ? 'text-gray-300' : 'text-gray-500'
+                        }`}>
                           {new Date(session.createdAt).toLocaleDateString()}
                         </p>
                         <div className="flex gap-1 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -151,7 +153,7 @@ export function ChatPage() {
                               e.stopPropagation();
                               handleArchiveSession(session.sessionId);
                             }}
-                            className="flex-1 text-xs px-2 py-1 bg-yellow-50 text-yellow-700 rounded hover:bg-yellow-100 transition-colors"
+                            className="flex-1 text-xs px-2 py-1 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition-colors"
                           >
                             <ArchiveX className="w-3 h-3 inline" />
                           </button>
@@ -160,7 +162,7 @@ export function ChatPage() {
                               e.stopPropagation();
                               handleDeleteSession(session.sessionId);
                             }}
-                            className="flex-1 text-xs px-2 py-1 bg-red-50 text-red-700 rounded hover:bg-red-100 transition-colors"
+                            className="flex-1 text-xs px-2 py-1 bg-gray-800 text-white rounded hover:bg-black transition-colors"
                           >
                             <Trash2 className="w-3 h-3 inline" />
                           </button>
@@ -172,12 +174,12 @@ export function ChatPage() {
               </div>
 
               {/* Questionnaires Reference */}
-              <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+              <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-gray-900">
                 <h2 className="font-bold text-gray-900 mb-4">Context</h2>
                 <select
                   value={selectedQuestionnaireId || ''}
                   onChange={(e) => setSelectedQuestionnaireId(e.target.value || null)}
-                  className="w-full p-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-2 border-2 border-gray-900 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
                 >
                   <option value="">No specific context</option>
                   {questionnaires.map((q: any) => (
@@ -219,17 +221,17 @@ export function ChatPage() {
             transition={{ delay: 0.3 }}
             className="mt-8 grid grid-cols-3 gap-4"
           >
-            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
-              <h3 className="font-semibold text-blue-900 mb-2">💡 Tip</h3>
-              <p className="text-sm text-blue-800">Ask specific questions about your documents and get answers with citations.</p>
+            <div className="bg-white border-2 border-gray-900 rounded-xl p-4">
+              <h3 className="font-semibold text-gray-900 mb-2">💡 Tip</h3>
+              <p className="text-sm text-gray-700">Ask specific questions about your documents and get answers with citations.</p>
             </div>
-            <div className="bg-green-50 border border-green-200 rounded-xl p-4">
-              <h3 className="font-semibold text-green-900 mb-2">📚 Citations</h3>
-              <p className="text-sm text-green-800">Every answer includes references to the source documents.</p>
+            <div className="bg-white border-2 border-gray-900 rounded-xl p-4">
+              <h3 className="font-semibold text-gray-900 mb-2">📚 Citations</h3>
+              <p className="text-sm text-gray-700">Every answer includes references to the source documents.</p>
             </div>
-            <div className="bg-purple-50 border border-purple-200 rounded-xl p-4">
-              <h3 className="font-semibold text-purple-900 mb-2">🔍 Confidence</h3>
-              <p className="text-sm text-purple-800">Each response shows a confidence score based on source relevance.</p>
+            <div className="bg-white border-2 border-gray-900 rounded-xl p-4">
+              <h3 className="font-semibold text-gray-900 mb-2">🔍 Confidence</h3>
+              <p className="text-sm text-gray-700">Each response shows a confidence score based on source relevance.</p>
             </div>
           </motion.div>
         </div>

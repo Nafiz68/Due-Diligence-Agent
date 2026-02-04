@@ -153,10 +153,10 @@ export function ChatBox({ sessionId: initialSessionId, questionnaireId, userId =
   return (
     <div className="flex flex-col h-full bg-white rounded-lg border border-gray-200 shadow-sm">
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200 p-4 rounded-t-lg">
+      <div className="bg-gray-100 border-b border-gray-900 p-4 rounded-t-lg">
         <div className="flex items-center gap-2">
-          <MessageSquare className="w-5 h-5 text-blue-600" />
-          <h3 className="font-semibold text-gray-800">Document Chat</h3>
+          <MessageSquare className="w-5 h-5 text-black" />
+          <h3 className="font-semibold text-gray-900">Document Chat</h3>
           {sessionId && (
             <span className="text-xs text-gray-500 ml-auto">Session: {sessionId.substring(0, 8)}</span>
           )}
@@ -165,7 +165,7 @@ export function ChatBox({ sessionId: initialSessionId, questionnaireId, userId =
       </div>
 
       {/* Messages Container */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-white">
         {messages.length === 0 && !isLoading && (
           <div className="flex flex-col items-center justify-center h-full text-center">
             <MessageSquare className="w-12 h-12 text-gray-300 mb-2" />
@@ -184,8 +184,8 @@ export function ChatBox({ sessionId: initialSessionId, questionnaireId, userId =
             <div
               className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
                 message.role === 'user'
-                  ? 'bg-blue-600 text-white rounded-br-none'
-                  : 'bg-white border border-gray-200 text-gray-800 rounded-bl-none'
+                  ? 'bg-gray-900 text-white rounded-br-none'
+                  : 'bg-white border-2 border-gray-900 text-gray-800 rounded-bl-none'
               }`}
             >
               <p className="text-sm">{message.content}</p>
@@ -193,7 +193,7 @@ export function ChatBox({ sessionId: initialSessionId, questionnaireId, userId =
               {/* Citations */}
               {message.citations && message.citations.length > 0 && (
                 <div className="mt-3 pt-3 border-t border-gray-200">
-                  <p className={`text-xs font-semibold mb-2 ${message.role === 'user' ? 'text-blue-100' : 'text-gray-600'}`}>
+                  <p className={`text-xs font-semibold mb-2 ${message.role === 'user' ? 'text-gray-100' : 'text-gray-600'}`}>
                     Sources:
                   </p>
                   <div className="space-y-1">
@@ -203,17 +203,17 @@ export function ChatBox({ sessionId: initialSessionId, questionnaireId, userId =
                         <div
                           key={cidx}
                           className={`text-xs p-2 rounded ${
-                            message.role === 'user' ? 'bg-blue-500' : 'bg-gray-100'
+                            message.role === 'user' ? 'bg-gray-800' : 'bg-gray-100'
                           }`}
                         >
-                          <p className={message.role === 'user' ? 'text-blue-50 font-semibold' : 'text-gray-700 font-semibold'}>
+                          <p className={message.role === 'user' ? 'text-gray-50 font-semibold' : 'text-gray-700 font-semibold'}>
                             {citation.documentName || 'Unknown Document'}
                           </p>
-                          <p className={message.role === 'user' ? 'text-blue-100 line-clamp-2' : 'text-gray-600 line-clamp-2'}>
+                          <p className={message.role === 'user' ? 'text-gray-100 line-clamp-2' : 'text-gray-600 line-clamp-2'}>
                             {citation.chunkText || 'No preview available'}
                           </p>
                           {citation.relevanceScore && (
-                            <p className={`text-xs mt-1 ${message.role === 'user' ? 'text-blue-100' : 'text-gray-500'}`}>
+                            <p className={`text-xs mt-1 ${message.role === 'user' ? 'text-gray-100' : 'text-gray-500'}`}>
                               Relevance: {(citation.relevanceScore * 100).toFixed(0)}%
                             </p>
                           )}
@@ -223,14 +223,14 @@ export function ChatBox({ sessionId: initialSessionId, questionnaireId, userId =
                   </div>
 
                   {message.confidenceScore && (
-                    <p className={`text-xs mt-2 ${message.role === 'user' ? 'text-blue-100' : 'text-gray-500'}`}>
+                    <p className={`text-xs mt-2 ${message.role === 'user' ? 'text-gray-100' : 'text-gray-500'}`}>
                       Confidence: {(message.confidenceScore * 100).toFixed(0)}%
                     </p>
                   )}
                 </div>
               )}
 
-              <span className={`text-xs mt-2 block ${message.role === 'user' ? 'text-blue-100' : 'text-gray-500'}`}>
+              <span className={`text-xs mt-2 block ${message.role === 'user' ? 'text-gray-100' : 'text-gray-500'}`}>
                 {message.timestamp.toLocaleTimeString()}
               </span>
             </div>
@@ -243,7 +243,7 @@ export function ChatBox({ sessionId: initialSessionId, questionnaireId, userId =
             animate={{ opacity: 1, y: 0 }}
             className="flex justify-start"
           >
-            <div className="bg-white border border-gray-200 text-gray-800 rounded-lg rounded-bl-none px-4 py-2">
+            <div className="bg-white border-2 border-gray-900 text-gray-800 rounded-lg rounded-bl-none px-4 py-2">
               <div className="flex items-center gap-2">
                 <Loader className="w-4 h-4 animate-spin" />
                 <span className="text-sm">Processing your question...</span>
@@ -292,12 +292,12 @@ export function ChatBox({ sessionId: initialSessionId, questionnaireId, userId =
             onChange={(e) => setInputValue(e.target.value)}
             placeholder={sessionId ? "Ask about your documents..." : "Initializing chat..."}
             disabled={!sessionId || isLoading}
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 disabled:text-gray-500"
+            className="flex-1 px-4 py-2 border-2 border-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 disabled:bg-gray-100 disabled:text-gray-500"
           />
           <button
             type="submit"
             disabled={!sessionId || isLoading || !inputValue.trim()}
-            className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
+            className="bg-gray-900 hover:bg-black disabled:bg-gray-300 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
           >
             <Send className="w-4 h-4" />
           </button>

@@ -16,7 +16,7 @@ const navigation: NavItem[] = [
   { name: 'Documents', path: '/documents', icon: FileText, gradient: 'from-gray-800 to-gray-900' },
   { name: 'Questionnaires', path: '/questionnaires', icon: FileQuestion, gradient: 'from-gray-700 to-gray-800' },
   { name: 'Review', path: '/review', icon: CheckCircle, gradient: 'from-black to-gray-900' },
-  { name: 'Chat', path: '/chat', icon: MessageSquare, gradient: 'from-blue-600 to-indigo-600' },
+  { name: 'Chat', path: '/chat', icon: MessageSquare, gradient: 'from-gray-900 to-black' },
   { name: 'Analytics', path: '/evaluation', icon: BarChart3, gradient: 'from-gray-900 to-gray-700' },
 ];
 
