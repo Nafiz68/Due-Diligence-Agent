@@ -52,6 +52,7 @@ export function ReviewPage() {
       return result.data;
     },
     enabled: !!selectedQuestionnaireId,
+    refetchInterval: 2000, // Refresh every 2 seconds
   });
 
   const questionnaires = questionnairesData || [];

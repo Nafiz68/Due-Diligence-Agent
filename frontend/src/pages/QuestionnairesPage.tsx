@@ -244,7 +244,7 @@ export function QuestionnairesPage() {
                         </div>
                         <div className="flex-1 min-w-0">
                           <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                            {questionnaire.fileName}
+                            {questionnaire.name || questionnaire.originalName}
                           </h3>
                           <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
                             <span className="flex items-center gap-1">
@@ -253,7 +253,7 @@ export function QuestionnairesPage() {
                             </span>
                             <span className="text-gray-300">•</span>
                             <span>
-                              {new Date(questionnaire.uploadedAt).toLocaleDateString()}
+                              {new Date(questionnaire.createdAt).toLocaleDateString()}
                             </span>
                           </div>
                           <div className="flex items-center gap-4">

@@ -18,6 +18,7 @@ export function EvaluationPage() {
       const result = await questionnairesApi.getAll();
       return result.data;
     },
+    refetchInterval: 2000, // Refresh every 2 seconds
   });
 
   // Fetch answers for analytics - fetch all answers without pagination limit
@@ -29,6 +30,7 @@ export function EvaluationPage() {
       return result.data;
     },
     enabled: !!selectedQuestionnaireId,
+    refetchInterval: 2000, // Refresh every 2 seconds
   });
 
   const questionnaires = questionnairesData || [];
