@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FileText, FileQuestion, CheckCircle, BarChart3, Home, Sparkles, Zap } from 'lucide-react';
+import { FileText, FileQuestion, CheckCircle, BarChart3, Home, Sparkles, Zap, MessageSquare } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { cn } from '@/utils/helpers';
 
@@ -16,6 +16,7 @@ const navigation: NavItem[] = [
   { name: 'Documents', path: '/documents', icon: FileText, gradient: 'from-gray-800 to-gray-900' },
   { name: 'Questionnaires', path: '/questionnaires', icon: FileQuestion, gradient: 'from-gray-700 to-gray-800' },
   { name: 'Review', path: '/review', icon: CheckCircle, gradient: 'from-black to-gray-900' },
+  { name: 'Chat', path: '/chat', icon: MessageSquare, gradient: 'from-blue-600 to-indigo-600' },
   { name: 'Analytics', path: '/evaluation', icon: BarChart3, gradient: 'from-gray-900 to-gray-700' },
 ];
 

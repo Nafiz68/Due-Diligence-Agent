@@ -14,13 +14,23 @@ export interface Answer {
   questionnaire: string;
   generatedAnswer: string;
   finalAnswer?: string;
+  manualAnswer?: string;
   confidenceScore: number;
   citations: Citation[];
-  status: 'pending' | 'generated' | 'reviewed' | 'approved';
+  status: 'pending' | 'generated' | 'confirmed' | 'rejected' | 'manual_updated' | 'missing_data';
   isEdited: boolean;
   reviewNotes?: string;
   reviewedBy?: string;
   reviewedAt?: string;
+  auditTrail?: Array<{
+    timestamp: string;
+    action: string;
+    actor: string;
+    changeDetails?: {
+      previousValue: string;
+      newValue: string;
+    };
+  }>;
   createdAt: string;
   updatedAt: string;
 }
@@ -67,6 +77,18 @@ export const answersApi = {
       reviewNotes?: string;
       reviewedBy?: string;
       status?: string;
+    }
+  ): Promise<{ success: boolean; data: Answer; message: string }> => {
+    return apiClient.patch(`/answers/${id}/review`, data);
+  },
+
+  reviewAnswer: async (
+    id: string,
+    data: {
+      action: 'confirmed' | 'rejected' | 'manual_updated' | 'missing_data';
+      finalAnswer?: string;
+      reviewNotes?: string;
+      reviewedBy?: string;
     }
   ): Promise<{ success: boolean; data: Answer; message: string }> => {
     return apiClient.patch(`/answers/${id}/review`, data);

@@ -147,3 +147,47 @@ export const searchDocuments = async (req, res, next) => {
     next(error);
   }
 };
+/**
+ * Get document processing status
+ */
+export const getDocumentStatus = async (req, res, next) => {
+  try {
+    const mongoDocCount = await Document.countDocuments();
+    const pendingCount = await Document.countDocuments({ status: 'pending' });
+    const processingCount = await Document.countDocuments({ status: 'processing' });
+    const completedCount = await Document.countDocuments({ status: 'completed' });
+    const failedCount = await Document.countDocuments({ status: 'failed' });
+
+    // Check ChromaDB
+    let chromaCount = 0;
+    let chromaError = null;
+    try {
+      const { getOrCreateCollection } = await import('../config/chroma.js');
+      const collection = await getOrCreateCollection('documents');
+      chromaCount = await collection.count();
+    } catch (err) {
+      chromaError = err.message;
+    }
+
+    res.json({
+      success: true,
+      data: {
+        mongodb: {
+          total: mongoDocCount,
+          pending: pendingCount,
+          processing: processingCount,
+          completed: completedCount,
+          failed: failedCount,
+        },
+        chromadb: {
+          indexedChunks: chromaCount,
+          status: chromaError ? 'error' : 'connected',
+          error: chromaError,
+        },
+        readyForChat: chromaCount > 0,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};

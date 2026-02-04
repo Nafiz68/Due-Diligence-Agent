@@ -38,7 +38,7 @@ const answerSchema = new mongoose.Schema(
     ],
     status: {
       type: String,
-      enum: ['pending', 'generated', 'reviewed', 'approved'],
+      enum: ['pending', 'generated', 'confirmed', 'rejected', 'manual_updated', 'missing_data'],
       default: 'pending',
     },
     isEdited: {
@@ -53,6 +53,31 @@ const answerSchema = new mongoose.Schema(
     },
     reviewedAt: {
       type: Date,
+    },
+    // Audit trail for AI vs manual answer comparison
+    auditTrail: [
+      {
+        timestamp: Date,
+        action: {
+          type: String,
+          enum: ['generated', 'confirmed', 'rejected', 'manual_edited', 'manual_created'],
+        },
+        actor: String,
+        changeDetails: {
+          previousValue: String,
+          newValue: String,
+        },
+      },
+    ],
+    // Manual override data preservation
+    manualAnswer: {
+      type: String,
+    },
+    manualAnswerCreatedAt: {
+      type: Date,
+    },
+    manualAnswerCreatedBy: {
+      type: String,
     },
   },
   {

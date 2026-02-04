@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import { CheckCircle, FileText, AlertCircle, Clock, ExternalLink, Download, FileSpreadsheet, FileType, Sparkles, BookOpen, Target, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { questionnairesApi, answersApi } from '@/lib/api';
+import { ReviewAnswer } from '@/components/answers/ReviewAnswerItem';
 
 export function ReviewPage() {
   const [selectedQuestionnaireId, setSelectedQuestionnaireId] = useState<string | null>(null);
@@ -248,93 +249,20 @@ export function ReviewPage() {
               ) : (
                 <div className="space-y-6">
                   {answers.map((answer: any, index: number) => (
-                    <motion.div
+                    <ReviewAnswer
                       key={answer._id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.05 }}
-                      className="bg-white rounded-3xl shadow-xl overflow-hidden border-2 border-gray-900 hover:shadow-2xl transition-all duration-300"
-                    >
-                      <div className="p-8">
-                        {/* Question */}
-                        <div className="flex items-start justify-between mb-6">
-                          <div className="flex-1">
-                            <div className="flex items-center gap-3 mb-3">
-                              <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-100 border-2 border-gray-900 rounded-lg">
-                                {getStatusIcon(answer.status)}
-                                <span className="text-sm font-medium text-gray-700 capitalize">
-                                  {answer.status}
-                                </span>
-                              </div>
-                              <motion.span
-                                whileHover={{ scale: 1.05 }}
-                                className={`text-sm font-bold px-4 py-1.5 rounded-xl shadow-lg ${getConfidenceColor(
-                                  answer.confidenceScore
-                                )}`}
-                              >
-                                {(answer.confidenceScore * 100).toFixed(0)}% confidence
-                              </motion.span>
-                            </div>
-                            <h3 className="text-xl font-bold text-gray-900">
-                              {typeof answer.question === 'object'
-                                ? answer.question.questionText
-                                : 'Question'}
-                            </h3>
-                          </div>
-                        </div>
-
-                        {/* Answer */}
-                        <div className="bg-gray-50 rounded-2xl p-6 mb-6 border-2 border-gray-900">
-                          <div className="flex items-center gap-2 mb-3">
-                            <Sparkles className="w-5 h-5 text-black" />
-                            <h4 className="text-sm font-bold text-gray-800">AI Answer</h4>
-                          </div>
-                          <p className="text-gray-800 whitespace-pre-wrap leading-relaxed">
-                            {answer.finalAnswer || answer.generatedAnswer}
-                          </p>
-                        </div>
-
-                        {/* Citations */}
-                        {answer.citations && answer.citations.length > 0 && (
-                          <div className="border-t-2 border-gray-900 pt-6">
-                            <div className="flex items-center gap-2 mb-4">
-                              <ExternalLink className="w-5 h-5 text-black" />
-                              <h4 className="text-sm font-bold text-gray-800">
-                                Sources ({answer.citations.length})
-                              </h4>
-                            </div>
-                            <div className="grid gap-4">
-                              {answer.citations.slice(0, 3).map((citation: any, idx: number) => (
-                                <motion.div
-                                  key={idx}
-                                  initial={{ opacity: 0, x: -10 }}
-                                  animate={{ opacity: 1, x: 0 }}
-                                  transition={{ delay: idx * 0.1 }}
-                                  className="bg-white border-2 border-gray-900 rounded-2xl p-5 hover:shadow-2xl transition-all"
-                                >
-                                  <div className="flex items-center justify-between mb-3">
-                                    <div className="flex items-center gap-2">
-                                      <div className="p-2 bg-black rounded-lg">
-                                        <FileText className="w-4 h-4 text-white" />
-                                      </div>
-                                      <span className="text-sm font-bold text-gray-900">
-                                        {citation.documentName}
-                                      </span>
-                                    </div>
-                                    <span className="text-xs font-bold px-3 py-1 bg-black text-white rounded-lg shadow">
-                                      {(citation.relevanceScore * 100).toFixed(0)}% match
-                                    </span>
-                                  </div>
-                                  <p className="text-sm text-gray-700 leading-relaxed line-clamp-2">
-                                    {citation.chunkText}
-                                  </p>
-                                </motion.div>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </motion.div>
+                      answer={answer}
+                      onReview={async (answerId, action, finalAnswer, reviewNotes) => {
+                        const response = await answersApi.reviewAnswer(answerId, {
+                          action,
+                          finalAnswer,
+                          reviewNotes,
+                          reviewedBy: 'current-user',
+                        });
+                        queryClient.invalidateQueries({ queryKey: ['answers', selectedQuestionnaireId] });
+                        return response;
+                      }}
+                    />
                   ))}
                 </div>
               )}

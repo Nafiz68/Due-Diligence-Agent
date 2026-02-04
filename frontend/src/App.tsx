@@ -6,6 +6,7 @@ import { DocumentsPage } from './pages/DocumentsPage';
 import { QuestionnairesPage } from './pages/QuestionnairesPage';
 import { ReviewPage } from './pages/ReviewPage';
 import { EvaluationPage } from './pages/EvaluationPage';
+import { ChatPage } from './pages/ChatPage';
 import './index.css';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route path="questionnaires" element={<QuestionnairesPage />} />
           <Route path="review" element={<ReviewPage />} />
           <Route path="evaluation" element={<EvaluationPage />} />
+          <Route path="chat" element={<ChatPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

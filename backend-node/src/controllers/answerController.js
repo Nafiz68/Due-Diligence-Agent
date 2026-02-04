@@ -114,28 +114,83 @@ export const getAnswer = async (req, res, next) => {
 };
 
 /**
- * Review and update answer
+ * Review and update answer with full audit trail
  */
 export const reviewAnswer = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { finalAnswer, reviewNotes, reviewedBy, status } = req.body;
+    const { finalAnswer, reviewNotes, reviewedBy, status, action } = req.body;
 
-    const { reviewAnswer: reviewAnswerService } = await import(
-      '../services/answerService.js'
-    );
+    if (!action || !['confirmed', 'rejected', 'manual_updated', 'missing_data'].includes(action)) {
+      return res.status(400).json({
+        success: false,
+        error: { message: 'Invalid action. Must be: confirmed, rejected, manual_updated, or missing_data' },
+      });
+    }
 
-    const answer = await reviewAnswerService(id, {
-      finalAnswer,
-      reviewNotes,
-      reviewedBy,
-      status,
+    const answer = await Answer.findById(id);
+    if (!answer) {
+      return res.status(404).json({
+        success: false,
+        error: { message: 'Answer not found' },
+      });
+    }
+
+    // Store previous value for audit trail
+    const previousValue = answer.finalAnswer || answer.generatedAnswer;
+
+    // Update answer based on action
+    switch (action) {
+      case 'confirmed':
+        answer.status = 'confirmed';
+        answer.finalAnswer = answer.finalAnswer || answer.generatedAnswer;
+        break;
+      case 'rejected':
+        answer.status = 'rejected';
+        answer.reviewNotes = reviewNotes || answer.reviewNotes;
+        break;
+      case 'manual_updated':
+        if (!finalAnswer) {
+          return res.status(400).json({
+            success: false,
+            error: { message: 'Manual updated action requires finalAnswer' },
+          });
+        }
+        answer.status = 'manual_updated';
+        answer.manualAnswer = finalAnswer;
+        answer.finalAnswer = finalAnswer;
+        answer.manualAnswerCreatedAt = new Date();
+        answer.manualAnswerCreatedBy = reviewedBy;
+        answer.isEdited = true;
+        break;
+      case 'missing_data':
+        answer.status = 'missing_data';
+        answer.reviewNotes = reviewNotes || 'Information not available in documents';
+        break;
+    }
+
+    // Update review metadata
+    answer.reviewedBy = reviewedBy;
+    answer.reviewedAt = new Date();
+    if (reviewNotes) answer.reviewNotes = reviewNotes;
+
+    // Add to audit trail
+    answer.auditTrail.push({
+      timestamp: new Date(),
+      action,
+      actor: reviewedBy,
+      changeDetails: {
+        previousValue,
+        newValue: answer.finalAnswer,
+      },
     });
+
+    const updatedAnswer = await answer.save();
 
     res.json({
       success: true,
-      data: answer,
-      message: 'Answer reviewed successfully',
+      data: updatedAnswer,
+      message: `Answer ${action} successfully`,
     });
   } catch (error) {
     next(error);

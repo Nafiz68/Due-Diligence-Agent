@@ -2,6 +2,7 @@ export { documentsApi } from './documents';
 export { questionnairesApi } from './questionnaires';
 export { answersApi } from './answers';
 export { evaluationsApi } from './evaluations';
+export { chatApi } from './chat';
 
 export type { Document } from './documents';
 export type { Questionnaire, Question } from './questionnaires';
