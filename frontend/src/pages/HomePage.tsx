@@ -119,7 +119,7 @@ export function HomePage() {
               <motion.button
                 whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(0,0,0,0.2)' }}
                 whileTap={{ scale: 0.98 }}
-                className="group flex items-center gap-3 bg-black text-white px-10 py-5 rounded-2xl font-bold text-lg shadow-2xl hover:shadow-3xl transition-all"
+                className="group flex items-center gap-3 bg-black text-white px-10 py-5 rounded-lg font-bold text-lg shadow-2xl hover:shadow-3xl transition-all"
               >
                 Get Started Free
                 <motion.div
@@ -134,7 +134,7 @@ export function HomePage() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
-                className="flex items-center gap-2 bg-white text-gray-900 px-10 py-5 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all border-2 border-gray-900"
+                className="flex items-center gap-2 bg-white text-gray-900 px-10 py-5 rounded-lg font-bold text-lg shadow-xl hover:shadow-2xl transition-all border-2 border-gray-900"
               >
                 <BarChart3 className="w-5 h-5" />
                 View Analytics Demo
@@ -156,9 +156,9 @@ export function HomePage() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1.1 + idx * 0.1, duration: 0.4 }}
                 whileHover={{ y: -5 }}
-                className="bg-white rounded-2xl p-6 shadow-lg border-2 border-gray-900 hover:shadow-2xl transition-all"
+                className="bg-white rounded-lg p-6 shadow-lg border-2 border-gray-900 hover:shadow-2xl transition-all"
               >
-                <div className="bg-black rounded-xl w-12 h-12 flex items-center justify-center mb-3 mx-auto">
+                <div className="bg-black rounded-lg w-12 h-12 flex items-center justify-center mb-3 mx-auto">
                   <benefit.icon className="w-6 h-6 text-white" />
                 </div>
                 <div className="text-2xl font-black text-gray-900 mb-1">{benefit.title}</div>
@@ -195,13 +195,13 @@ export function HomePage() {
               whileHover={{ y: -8, scale: 1.02 }}
               className="group relative"
             >
-              <div className="relative bg-white rounded-3xl p-8 shadow-xl hover:shadow-3xl transition-all border-2 border-gray-900 h-full overflow-hidden">
+              <div className="relative bg-white rounded-lg p-8 shadow-xl hover:shadow-3xl transition-all border-2 border-gray-900 h-full overflow-hidden">
                 {/* Hover effect background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 
                 <div className="relative z-10">
                   <motion.div 
-                    className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-6 shadow-lg`}
+                    className={`w-16 h-16 rounded-lg bg-gradient-to-br ${feature.color} flex items-center justify-center mb-6 shadow-lg`}
                     whileHover={{ rotate: 360, scale: 1.1 }}
                     transition={{ duration: 0.6 }}
                   >
@@ -267,9 +267,9 @@ export function HomePage() {
                 transition={{ delay: idx * 0.2, duration: 0.5 }}
                 className="relative"
               >
-                <div className="bg-white rounded-3xl p-8 shadow-xl border-2 border-gray-900 h-full">
+                <div className="bg-white rounded-lg p-8 shadow-xl border-2 border-gray-900 h-full">
                   <div className="text-6xl font-black text-gray-500 mb-4">{item.step}</div>
-                  <div className="bg-black rounded-2xl w-14 h-14 flex items-center justify-center mb-6">
+                  <div className="bg-black rounded-lg w-14 h-14 flex items-center justify-center mb-6">
                     <item.icon className="w-7 h-7 text-white" />
                   </div>
                   <h3 className="text-2xl font-black text-gray-900 mb-3">{item.title}</h3>
@@ -294,7 +294,7 @@ export function HomePage() {
         transition={{ duration: 0.8 }}
         className="max-w-7xl mx-auto px-8 py-20"
       >
-        <div className="relative bg-gradient-to-br from-black via-gray-900 to-black rounded-3xl p-16 text-center text-white shadow-3xl border-2 border-gray-800 overflow-hidden">
+        <div className="relative bg-gradient-to-br from-black via-gray-900 to-black rounded-lg p-16 text-center text-white shadow-3xl border-2 border-gray-800 overflow-hidden">
           {/* Animated background pattern */}
           <motion.div
             className="absolute inset-0 opacity-10"
@@ -327,7 +327,7 @@ export function HomePage() {
               <motion.button
                 whileHover={{ scale: 1.05, boxShadow: '0 20px 50px rgba(255,255,255,0.2)' }}
                 whileTap={{ scale: 0.98 }}
-                className="bg-white text-black px-12 py-6 rounded-2xl font-black text-xl shadow-2xl hover:shadow-3xl transition-all inline-flex items-center gap-3"
+                className="bg-white text-black px-12 py-6 rounded-lg font-black text-xl shadow-2xl hover:shadow-3xl transition-all inline-flex items-center gap-3"
               >
                 Start Your Free Trial
                 <motion.div

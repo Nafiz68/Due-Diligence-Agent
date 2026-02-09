@@ -61,7 +61,7 @@ export function Sidebar() {
                 whileHover={{ scale: 1.02, x: 4 }}
                 whileTap={{ scale: 0.98 }}
                 className={cn(
-                  'relative flex items-center px-5 py-4 text-sm font-semibold rounded-2xl transition-all duration-300 overflow-hidden',
+                  'relative flex items-center px-5 py-4 text-sm font-semibold rounded-lg transition-all duration-300 overflow-hidden',
                   isActive
                     ? 'text-white shadow-2xl'
                     : 'text-gray-700 hover:bg-gray-100 hover:shadow-md'
@@ -95,7 +95,7 @@ export function Sidebar() {
         transition={{ delay: 0.5 }}
         className="p-6 border-t-2 border-gray-900"
       >
-        <div className="bg-gray-100 rounded-2xl p-4 border-2 border-gray-900">
+        <div className="bg-gray-100 rounded-lg p-4 border-2 border-gray-900">
           <div className="flex items-center gap-2 mb-2">
             <Zap className="w-4 h-4 text-black" />
             <p className="text-xs font-bold text-gray-900">Powered by AI</p>

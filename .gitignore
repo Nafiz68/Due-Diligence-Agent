@@ -7,13 +7,25 @@ package-lock.json
 .env.local
 .env.*.local
 
-# Uploads
-backend-node/uploads/
-uploads/
+# Uploads - ignore all files except .gitkeep
+backend-node/uploads/*
+!backend-node/uploads/.gitkeep
+uploads/*
+!uploads/.gitkeep
 
-# ChromaDB data
-chroma_data/
+# ChromaDB data - ignore database files but keep folder structure
+chroma/
+chroma_data/*
+!chroma_data/.gitkeep
 *.chromadb
+*.sqlite3
+
+# Data folder - ignore PDFs and other documents but keep folder structure
+data/*.pdf
+data/*.docx
+data/*.xlsx
+data/*.pptx
+data/*.csv
 
 # Logs
 logs/

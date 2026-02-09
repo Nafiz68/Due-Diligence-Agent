@@ -91,7 +91,7 @@ export function QuestionnairesPage() {
             className="mb-12"
           >
             <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 bg-black rounded-2xl shadow-lg">
+              <div className="p-3 bg-black rounded-lg shadow-lg">
                 <FileSpreadsheet className="w-8 h-8 text-white" />
               </div>
               <div>
@@ -112,7 +112,7 @@ export function QuestionnairesPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             {...getRootProps()}
-            className={`relative overflow-hidden rounded-3xl shadow-xl p-16 mb-8 border-2 border-dashed transition-all duration-300 cursor-pointer ${
+            className={`relative overflow-hidden rounded-lg shadow-xl p-16 mb-8 border-2 border-dashed transition-all duration-300 cursor-pointer ${
               isDragActive
                 ? 'border-gray-900 bg-gray-100 scale-[1.02]'
                 : 'border-gray-400 hover:border-gray-900 bg-white hover:shadow-2xl'
@@ -134,7 +134,7 @@ export function QuestionnairesPage() {
               <p className="text-gray-600 mb-4">
                 Drag and drop or click to select a file
               </p>
-              <div className="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 border-2 border-gray-900 rounded-xl shadow-sm">
+              <div className="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 border-2 border-gray-900 rounded-lg shadow-sm">
                 <FileText className="w-5 h-5 text-gray-900" />
                 <span className="text-sm text-gray-900 font-medium">CSV • XLSX • XLS • PDF</span>
               </div>
@@ -148,7 +148,7 @@ export function QuestionnairesPage() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="bg-white border-2 border-gray-900 rounded-2xl p-6 mb-6 shadow-lg"
+                className="bg-white border-2 border-gray-900 rounded-lg p-6 mb-6 shadow-lg"
               >
                 <div className="flex items-center">
                   <Clock className="w-6 h-6 text-black animate-spin mr-3" />
@@ -162,7 +162,7 @@ export function QuestionnairesPage() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="bg-red-50 border-2 border-red-600 rounded-2xl p-6 mb-6 shadow-lg"
+                className="bg-red-50 border-2 border-red-600 rounded-lg p-6 mb-6 shadow-lg"
               >
                 <div className="flex items-center">
                   <AlertCircle className="w-6 h-6 text-red-600 mr-3" />
@@ -176,7 +176,7 @@ export function QuestionnairesPage() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="bg-green-50 border-2 border-green-600 rounded-2xl p-6 mb-6 shadow-lg"
+                className="bg-green-50 border-2 border-green-600 rounded-lg p-6 mb-6 shadow-lg"
               >
                 <div className="flex items-center">
                   <CheckCircle className="w-6 h-6 text-green-600 mr-3" />
@@ -191,7 +191,7 @@ export function QuestionnairesPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-white rounded-3xl shadow-xl overflow-hidden border-2 border-gray-900"
+            className="bg-white rounded-lg shadow-xl overflow-hidden border-2 border-gray-900"
           >
             <div className="p-8 border-b-2 border-gray-900 bg-gray-50">
               <h2 className="text-2xl font-bold text-gray-900">
@@ -239,7 +239,7 @@ export function QuestionnairesPage() {
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex items-start space-x-4 flex-1">
-                      <div className="p-3 bg-black rounded-xl shadow-lg">
+                      <div className="p-3 bg-black rounded-lg shadow-lg">
                           <FileSpreadsheet className="w-8 h-8 text-white" />
                         </div>
                         <div className="flex-1 min-w-0">
@@ -289,7 +289,7 @@ export function QuestionnairesPage() {
                             whileTap={{ scale: 0.95 }}
                             onClick={() => generateAnswersMutation.mutate(questionnaire._id)}
                             disabled={generateAnswersMutation.isPending}
-                            className="flex items-center gap-2 px-5 py-3 bg-black text-white font-semibold rounded-xl shadow-lg hover:shadow-2xl transition-all"
+                            className="flex items-center gap-2 px-5 py-3 bg-black text-white font-semibold rounded-lg shadow-lg hover:shadow-2xl transition-all"
                           >
                             <Play className="w-5 h-5" />
                             <span>

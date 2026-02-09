@@ -119,7 +119,7 @@ export function EvaluationPage() {
             className="mb-12"
           >
             <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 bg-black rounded-2xl shadow-lg">
+              <div className="p-3 bg-black rounded-lg shadow-lg">
                 <BarChart3 className="w-8 h-8 text-white" />
               </div>
               <div>
@@ -142,7 +142,7 @@ export function EvaluationPage() {
               transition={{ delay: 0.1 }}
               className="col-span-3"
             >
-              <div className="bg-white rounded-3xl shadow-xl p-6 border-2 border-gray-900 sticky top-8">
+              <div className="bg-white rounded-lg shadow-xl p-6 border-2 border-gray-900 sticky top-8">
                 <div className="flex items-center gap-2 mb-6">
                   <Target className="w-6 h-6 text-black" />
                   <h2 className="text-xl font-bold text-gray-900">Questionnaires</h2>
@@ -160,7 +160,7 @@ export function EvaluationPage() {
                         onClick={() => setSelectedQuestionnaireId(q._id)}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className={`w-full text-left p-4 rounded-2xl transition-all ${
+                        className={`w-full text-left p-4 rounded-lg transition-all ${
                           selectedQuestionnaireId === q._id
                             ? 'bg-black text-white shadow-2xl'
                             : 'bg-white hover:shadow-md border-2 border-gray-900'
@@ -195,7 +195,7 @@ export function EvaluationPage() {
                 <motion.div
                   initial={{ scale: 0.95 }}
                   animate={{ scale: 1 }}
-                  className="bg-white rounded-3xl shadow-xl p-16 text-center border-2 border-gray-900"
+                  className="bg-white rounded-lg shadow-xl p-16 text-center border-2 border-gray-900"
                 >
                   <div className="relative w-32 h-32 mx-auto mb-6">
                     <div className="absolute inset-0 bg-gray-100 rounded-full opacity-50"></div>
@@ -212,7 +212,7 @@ export function EvaluationPage() {
                 <motion.div
                   initial={{ scale: 0.95 }}
                   animate={{ scale: 1 }}
-                  className="bg-white rounded-3xl shadow-xl p-16 text-center border-2 border-gray-900"
+                  className="bg-white rounded-lg shadow-xl p-16 text-center border-2 border-gray-900"
                 >
                   <div className="relative w-32 h-32 mx-auto mb-6">
                     <div className="absolute inset-0 bg-gray-100 rounded-full opacity-50"></div>
@@ -234,7 +234,7 @@ export function EvaluationPage() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       transition={{ delay: 0.1, type: 'spring', stiffness: 100 }}
                       whileHover={{ scale: 1.05, y: -5 }}
-                      className="relative bg-gradient-to-br from-black via-gray-900 to-black rounded-3xl shadow-2xl p-6 text-white border-2 border-gray-800 overflow-hidden group"
+                      className="relative bg-gradient-to-br from-black via-gray-900 to-black rounded-lg shadow-2xl p-6 text-white border-2 border-gray-800 overflow-hidden group"
                     >
                       {/* Animated background effect */}
                       <motion.div
@@ -272,7 +272,7 @@ export function EvaluationPage() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       transition={{ delay: 0.2, type: 'spring', stiffness: 100 }}
                       whileHover={{ scale: 1.05, y: -5 }}
-                      className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-3xl shadow-2xl p-6 text-white border-2 border-gray-700 overflow-hidden group"
+                      className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-lg shadow-2xl p-6 text-white border-2 border-gray-700 overflow-hidden group"
                     >
                       <motion.div
                         className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"
@@ -314,7 +314,7 @@ export function EvaluationPage() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       transition={{ delay: 0.3, type: 'spring', stiffness: 100 }}
                       whileHover={{ scale: 1.05, y: -5 }}
-                      className="relative bg-gradient-to-br from-gray-800 via-gray-700 to-gray-800 rounded-3xl shadow-2xl p-6 text-white border-2 border-gray-600 overflow-hidden group"
+                      className="relative bg-gradient-to-br from-gray-800 via-gray-700 to-gray-800 rounded-lg shadow-2xl p-6 text-white border-2 border-gray-600 overflow-hidden group"
                     >
                       <motion.div
                         className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"
@@ -351,7 +351,7 @@ export function EvaluationPage() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       transition={{ delay: 0.4, type: 'spring', stiffness: 100 }}
                       whileHover={{ scale: 1.05, y: -5 }}
-                      className="relative bg-gradient-to-br from-gray-700 via-gray-600 to-gray-700 rounded-3xl shadow-2xl p-6 text-white border-2 border-gray-500 overflow-hidden group"
+                      className="relative bg-gradient-to-br from-gray-700 via-gray-600 to-gray-700 rounded-lg shadow-2xl p-6 text-white border-2 border-gray-500 overflow-hidden group"
                     >
                       <motion.div
                         className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"
@@ -466,11 +466,11 @@ export function EvaluationPage() {
                       animate={{ opacity: 1, scale: 1, rotateY: 0 }}
                       transition={{ delay: 0.6, duration: 0.6 }}
                       whileHover={{ scale: 1.02 }}
-                      className="bg-gradient-to-br from-white to-gray-50 rounded-3xl shadow-2xl p-8 border-2 border-gray-900 hover:border-gray-700 transition-all"
+                      className="bg-gradient-to-br from-white to-gray-50 rounded-lg shadow-2xl p-8 border-2 border-gray-900 hover:border-gray-700 transition-all"
                     >
                       <div className="flex items-center gap-3 mb-6">
                         <motion.div 
-                          className="p-3 bg-black rounded-xl"
+                          className="p-3 bg-black rounded-lg"
                           whileHover={{ rotate: 360 }}
                           transition={{ duration: 0.8 }}
                         >
@@ -533,11 +533,11 @@ export function EvaluationPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.7 }}
                     whileHover={{ scale: 1.01 }}
-                    className="bg-gradient-to-br from-white to-gray-50 rounded-3xl shadow-2xl p-8 border-2 border-gray-900"
+                    className="bg-gradient-to-br from-white to-gray-50 rounded-lg shadow-2xl p-8 border-2 border-gray-900"
                   >
                     <div className="flex items-center gap-3 mb-8">
                       <motion.div 
-                        className="p-3 bg-black rounded-xl"
+                        className="p-3 bg-black rounded-lg"
                         whileHover={{ rotate: 360 }}
                         transition={{ duration: 0.8 }}
                       >
@@ -564,7 +564,7 @@ export function EvaluationPage() {
                               <span className="text-sm font-bold text-gray-900">{item.name}</span>
                             </div>
                             <motion.span 
-                              className="text-xl font-black px-4 py-2 rounded-xl shadow-lg"
+                              className="text-xl font-black px-4 py-2 rounded-lg shadow-lg"
                               initial={{ scale: 0 }}
                               animate={{ scale: 1 }}
                               transition={{ delay: 0.9 + idx * 0.1, type: 'spring' }}
@@ -605,11 +605,11 @@ export function EvaluationPage() {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 1 }}
                     whileHover={{ scale: 1.01 }}
-                    className="bg-gradient-to-br from-white to-gray-50 rounded-3xl shadow-2xl p-8 border-2 border-gray-900"
+                    className="bg-gradient-to-br from-white to-gray-50 rounded-lg shadow-2xl p-8 border-2 border-gray-900"
                   >
                     <div className="flex items-center gap-3 mb-6">
                       <motion.div 
-                        className="p-3 bg-black rounded-xl"
+                        className="p-3 bg-black rounded-lg"
                         whileHover={{ rotate: 360 }}
                         transition={{ duration: 0.8 }}
                       >

@@ -87,7 +87,7 @@ export function ChatPage() {
             className="mb-8"
           >
             <div className="flex items-center gap-3 mb-2">
-              <div className="p-3 bg-black rounded-2xl shadow-lg">
+              <div className="p-3 bg-black rounded-lg shadow-lg">
                 <MessageSquare className="w-8 h-8 text-white" />
               </div>
               <h1 className="text-4xl font-bold text-black">Document Chat</h1>
@@ -108,14 +108,14 @@ export function ChatPage() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={handleCreateSession}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-black hover:bg-gray-900 text-white font-semibold rounded-xl shadow-lg transition-all"
+                className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-black hover:bg-gray-900 text-white font-semibold rounded-lg shadow-lg transition-all"
               >
                 <Plus className="w-5 h-5" />
                 New Chat
               </motion.button>
 
               {/* Chat Sessions */}
-              <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-gray-900">
+              <div className="bg-white rounded-lg shadow-lg p-6 border-2 border-gray-900">
                 <h2 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
                   <MessageSquare className="w-5 h-5 text-black" />
                   Sessions
@@ -174,7 +174,7 @@ export function ChatPage() {
               </div>
 
               {/* Questionnaires Reference */}
-              <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-gray-900">
+              <div className="bg-white rounded-lg shadow-lg p-6 border-2 border-gray-900">
                 <h2 className="font-bold text-gray-900 mb-4">Context</h2>
                 <select
                   value={selectedQuestionnaireId || ''}
@@ -221,15 +221,15 @@ export function ChatPage() {
             transition={{ delay: 0.3 }}
             className="mt-8 grid grid-cols-3 gap-4"
           >
-            <div className="bg-white border-2 border-gray-900 rounded-xl p-4">
+            <div className="bg-white border-2 border-gray-900 rounded-lg p-4">
               <h3 className="font-semibold text-gray-900 mb-2">💡 Tip</h3>
               <p className="text-sm text-gray-700">Ask specific questions about your documents and get answers with citations.</p>
             </div>
-            <div className="bg-white border-2 border-gray-900 rounded-xl p-4">
+            <div className="bg-white border-2 border-gray-900 rounded-lg p-4">
               <h3 className="font-semibold text-gray-900 mb-2">📚 Citations</h3>
               <p className="text-sm text-gray-700">Every answer includes references to the source documents.</p>
             </div>
-            <div className="bg-white border-2 border-gray-900 rounded-xl p-4">
+            <div className="bg-white border-2 border-gray-900 rounded-lg p-4">
               <h3 className="font-semibold text-gray-900 mb-2">🔍 Confidence</h3>
               <p className="text-sm text-gray-700">Each response shows a confidence score based on source relevance.</p>
             </div>

@@ -49,7 +49,7 @@ export function DocumentsPage() {
             className="mb-12"
           >
             <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 bg-black rounded-2xl shadow-lg">
+              <div className="p-3 bg-black rounded-lg shadow-lg">
                 <FileText className="w-8 h-8 text-white" />
               </div>
               <div>
@@ -85,9 +85,9 @@ export function DocumentsPage() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1 }}
             >
-              <div className="bg-white rounded-3xl shadow-xl p-8 border-2 border-gray-900">
+              <div className="bg-white rounded-lg shadow-xl p-8 border-2 border-gray-900">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="p-2 bg-gray-100 rounded-xl border-2 border-gray-900">
+                  <div className="p-2 bg-gray-100 rounded-lg border-2 border-gray-900">
                     <Upload className="w-6 h-6 text-black" />
                   </div>
                   <h2 className="text-2xl font-bold text-gray-900">Upload Documents</h2>

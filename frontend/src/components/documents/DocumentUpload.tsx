@@ -43,7 +43,7 @@ export function DocumentUpload({ onUpload, maxFiles = 10, accept }: DocumentUplo
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className={cn(
-          'relative border-2 border-dashed rounded-2xl p-12 text-center cursor-pointer transition-all duration-300',
+          'relative border-2 border-dashed rounded-lg p-12 text-center cursor-pointer transition-all duration-300',
           isDragActive
             ? 'border-gray-900 bg-gray-100 shadow-lg scale-105'
             : 'border-gray-400 hover:border-gray-900 hover:shadow-md bg-white'
@@ -107,7 +107,7 @@ export function DocumentUpload({ onUpload, maxFiles = 10, accept }: DocumentUplo
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 20 }}
                   transition={{ delay: index * 0.05 }}
-                  className="group flex items-center justify-between p-4 bg-white border-2 border-gray-900 rounded-xl hover:shadow-md transition-all"
+                  className="group flex items-center justify-between p-4 bg-white border-2 border-gray-900 rounded-lg hover:shadow-md transition-all"
                 >
                   <div className="flex items-center flex-1 min-w-0 gap-3">
                     <div className="p-2 bg-gray-100 rounded-lg border-2 border-gray-900">
@@ -136,7 +136,7 @@ export function DocumentUpload({ onUpload, maxFiles = 10, accept }: DocumentUplo
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={handleUpload}
-              className="w-full py-4 px-6 bg-black text-white font-semibold rounded-xl shadow-lg hover:shadow-2xl transition-all"
+              className="w-full py-4 px-6 bg-black text-white font-semibold rounded-lg shadow-lg hover:shadow-2xl transition-all"
             >
               <span className="flex items-center justify-center gap-2">
                 <Upload className="w-5 h-5" />

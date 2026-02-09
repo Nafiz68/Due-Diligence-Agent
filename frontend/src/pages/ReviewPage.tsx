@@ -89,7 +89,7 @@ export function ReviewPage() {
           >
             <div>
               <div className="flex items-center gap-3 mb-2">
-                <div className="p-3 bg-black rounded-2xl shadow-lg">
+                <div className="p-3 bg-black rounded-lg shadow-lg">
                   <BookOpen className="w-8 h-8 text-white" />
                 </div>
                 <h1 className="text-4xl font-bold text-black">
@@ -113,7 +113,7 @@ export function ReviewPage() {
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handleExport('csv')}
                   disabled={downloading}
-                  className="flex items-center gap-2 px-5 py-3 bg-black text-white font-semibold rounded-xl shadow-lg hover:shadow-2xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex items-center gap-2 px-5 py-3 bg-black text-white font-semibold rounded-lg shadow-lg hover:shadow-2xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <FileSpreadsheet className="w-5 h-5" />
                   {downloading ? 'Downloading...' : 'CSV'}
@@ -123,7 +123,7 @@ export function ReviewPage() {
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handleExport('excel')}
                   disabled={downloading}
-                  className="flex items-center gap-2 px-5 py-3 bg-gray-900 text-white font-semibold rounded-xl shadow-lg hover:shadow-2xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex items-center gap-2 px-5 py-3 bg-gray-900 text-white font-semibold rounded-lg shadow-lg hover:shadow-2xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <FileSpreadsheet className="w-5 h-5" />
                   {downloading ? 'Downloading...' : 'Excel'}
@@ -133,7 +133,7 @@ export function ReviewPage() {
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handleExport('pdf')}
                   disabled={downloading}
-                  className="flex items-center gap-2 px-5 py-3 bg-gray-800 text-white font-semibold rounded-xl shadow-lg hover:shadow-2xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex items-center gap-2 px-5 py-3 bg-gray-800 text-white font-semibold rounded-lg shadow-lg hover:shadow-2xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <FileType className="w-5 h-5" />
                   {downloading ? 'Downloading...' : 'PDF'}
@@ -150,7 +150,7 @@ export function ReviewPage() {
               transition={{ delay: 0.1 }}
               className="col-span-3"
             >
-              <div className="bg-white rounded-3xl shadow-xl p-6 border-2 border-gray-900 sticky top-8">
+              <div className="bg-white rounded-lg shadow-xl p-6 border-2 border-gray-900 sticky top-8">
                 <div className="flex items-center gap-2 mb-6">
                   <Target className="w-6 h-6 text-black" />
                   <h2 className="text-xl font-bold text-gray-900">Questionnaires</h2>
@@ -168,7 +168,7 @@ export function ReviewPage() {
                         onClick={() => setSelectedQuestionnaireId(q._id)}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className={`w-full text-left p-4 rounded-2xl transition-all ${
+                        className={`w-full text-left p-4 rounded-lg transition-all ${
                           selectedQuestionnaireId === q._id
                             ? 'bg-black text-white shadow-2xl'
                             : 'bg-white hover:shadow-md border-2 border-gray-900'
@@ -203,7 +203,7 @@ export function ReviewPage() {
                 <motion.div
                   initial={{ scale: 0.95 }}
                   animate={{ scale: 1 }}
-                  className="bg-white rounded-3xl shadow-xl p-16 text-center border-2 border-gray-900"
+                  className="bg-white rounded-lg shadow-xl p-16 text-center border-2 border-gray-900"
                 >
                   <div className="relative w-32 h-32 mx-auto mb-6">
                     <div className="absolute inset-0 bg-gray-100 rounded-full opacity-50"></div>
@@ -220,7 +220,7 @@ export function ReviewPage() {
                 <motion.div
                   initial={{ scale: 0.95 }}
                   animate={{ scale: 1 }}
-                  className="bg-white rounded-3xl shadow-xl p-16 text-center border-2 border-gray-900"
+                  className="bg-white rounded-lg shadow-xl p-16 text-center border-2 border-gray-900"
                 >
                   <motion.div
                     animate={{ rotate: 360 }}
@@ -233,7 +233,7 @@ export function ReviewPage() {
                 <motion.div
                   initial={{ scale: 0.95 }}
                   animate={{ scale: 1 }}
-                  className="bg-white rounded-3xl shadow-xl p-16 text-center border-2 border-gray-900"
+                  className="bg-white rounded-lg shadow-xl p-16 text-center border-2 border-gray-900"
                 >
                   <div className="relative w-32 h-32 mx-auto mb-6">
                     <div className="absolute inset-0 bg-gray-100 rounded-full opacity-50"></div>

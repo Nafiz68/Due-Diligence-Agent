@@ -62,7 +62,7 @@ export function DocumentList() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => refetch()}
-          className="p-3 bg-white border-2 border-gray-900 rounded-xl hover:shadow-md transition-all"
+          className="p-3 bg-white border-2 border-gray-900 rounded-lg hover:shadow-md transition-all"
           title="Refresh"
         >
           <RefreshCw className="w-5 h-5 text-gray-900" />
@@ -76,11 +76,11 @@ export function DocumentList() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.05 }}
-            className="group relative bg-white border-2 border-gray-900 rounded-2xl p-6 hover:shadow-xl transition-all duration-300"
+            className="group relative bg-white border-2 border-gray-900 rounded-lg p-6 hover:shadow-xl transition-all duration-300"
           >
             <div className="flex items-start justify-between">
               <div className="flex items-start flex-1 min-w-0 gap-4">
-                <div className="p-3 bg-black rounded-xl shadow-lg">
+                <div className="p-3 bg-black rounded-lg shadow-lg">
                   <File className="w-6 h-6 text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -125,7 +125,7 @@ export function DocumentList() {
                     deleteMutation.mutate(doc._id);
                   }
                 }}
-                className="ml-4 p-3 text-gray-400 hover:bg-red-50 hover:text-red-600 rounded-xl transition-colors"
+                className="ml-4 p-3 text-gray-400 hover:bg-red-50 hover:text-red-600 rounded-lg transition-colors"
                 disabled={deleteMutation.isPending}
               >
                 <Trash2 className="w-5 h-5" />
