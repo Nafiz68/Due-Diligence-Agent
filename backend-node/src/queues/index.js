@@ -7,26 +7,28 @@ import {
   generateAnswersForQuestionnaire,
 } from '../services/answerService.js';
 
-// Create job queues
-export const documentQueue = new Queue('document-processing', {
-  redis: {
+// Redis configuration for Bull queues
+const getRedisConfig = () => {
+  if (process.env.REDIS_URL) {
+    return process.env.REDIS_URL;
+  }
+  return {
     host: process.env.REDIS_HOST || 'localhost',
     port: process.env.REDIS_PORT || 6379,
-  },
+  };
+};
+
+// Create job queues
+export const documentQueue = new Queue('document-processing', {
+  redis: getRedisConfig(),
 });
 
 export const questionnaireQueue = new Queue('questionnaire-processing', {
-  redis: {
-    host: process.env.REDIS_HOST || 'localhost',
-    port: process.env.REDIS_PORT || 6379,
-  },
+  redis: getRedisConfig(),
 });
 
 export const answerQueue = new Queue('answer-generation', {
-  redis: {
-    host: process.env.REDIS_HOST || 'localhost',
-    port: process.env.REDIS_PORT || 6379,
-  },
+  redis: getRedisConfig(),
   settings: {
     stalledInterval: 300000, // 5 minutes before considering job stalled
     maxStalledCount: 2, // Retry stalled jobs twice
