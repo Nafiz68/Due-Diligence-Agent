@@ -22,7 +22,7 @@ export function QuestionnairesPage() {
 
   // Upload mutation
   const uploadMutation = useMutation({
-    mutationFn: questionnairesApi.upload,
+    mutationFn: (file: File) => questionnairesApi.upload(file),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['questionnaires'] });
       setUploadError(null);
@@ -111,7 +111,7 @@ export function QuestionnairesPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            {...getRootProps()}
+            {...(({ onDrag, ...rest }) => rest)(getRootProps())}
             className={`relative overflow-hidden rounded-lg shadow-xl p-16 mb-8 border-2 border-dashed transition-all duration-300 cursor-pointer ${
               isDragActive
                 ? 'border-gray-900 bg-gray-100 scale-[1.02]'
