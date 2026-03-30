@@ -8,6 +8,7 @@ import { ReviewAnswer } from '@/components/answers/ReviewAnswerItem';
 export function ReviewPage() {
   const [selectedQuestionnaireId, setSelectedQuestionnaireId] = useState<string | null>(null);
   const [downloading, setDownloading] = useState(false);
+  const queryClient = useQueryClient();
 
   const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
@@ -253,14 +254,13 @@ export function ReviewPage() {
                       key={answer._id}
                       answer={answer}
                       onReview={async (answerId, action, finalAnswer, reviewNotes) => {
-                        const response = await answersApi.reviewAnswer(answerId, {
+                        await answersApi.reviewAnswer(answerId, {
                           action,
                           finalAnswer,
                           reviewNotes,
                           reviewedBy: 'current-user',
                         });
                         queryClient.invalidateQueries({ queryKey: ['answers', selectedQuestionnaireId] });
-                        return response;
                       }}
                     />
                   ))}

@@ -640,9 +640,7 @@ export function EvaluationPage() {
                           ))}
                         </defs>
                         <RadialBar
-                          minAngle={15}
                           background={{ fill: '#e5e7eb' }}
-                          clockWise
                           dataKey="value"
                           animationDuration={1800}
                           animationEasing="ease-out"

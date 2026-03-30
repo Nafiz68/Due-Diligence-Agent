@@ -22,7 +22,7 @@ export function QuestionnairesPage() {
 
   // Upload mutation
   const uploadMutation = useMutation({
-    mutationFn: questionnairesApi.upload,
+    mutationFn: (file: File) => questionnairesApi.upload(file),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['questionnaires'] });
       setUploadError(null);
@@ -111,32 +111,35 @@ export function QuestionnairesPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            {...getRootProps()}
-            className={`relative overflow-hidden rounded-lg shadow-xl p-16 mb-8 border-2 border-dashed transition-all duration-300 cursor-pointer ${
-              isDragActive
-                ? 'border-gray-900 bg-gray-100 scale-[1.02]'
-                : 'border-gray-400 hover:border-gray-900 bg-white hover:shadow-2xl'
-            }`}
           >
-            <input {...getInputProps()} />
-            <div className="text-center relative z-10">
-              <motion.div
-                animate={isDragActive ? { scale: [1, 1.2, 1], rotate: [0, 10, -10, 0] } : {}}
-                transition={{ duration: 0.5 }}
-                className="relative w-24 h-24 mx-auto mb-6"
-              >
-                <div className="absolute inset-0 bg-gray-200 rounded-full opacity-50"></div>
-                <Upload className="w-16 h-16 text-black absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
-              </motion.div>
-              <p className="text-2xl font-bold text-gray-800 mb-2">
-                {isDragActive ? 'Drop your file here' : 'Upload Questionnaire'}
-              </p>
-              <p className="text-gray-600 mb-4">
-                Drag and drop or click to select a file
-              </p>
-              <div className="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 border-2 border-gray-900 rounded-lg shadow-sm">
-                <FileText className="w-5 h-5 text-gray-900" />
-                <span className="text-sm text-gray-900 font-medium">CSV • XLSX • XLS • PDF</span>
+            <div
+              {...getRootProps()}
+              className={`relative overflow-hidden rounded-lg shadow-xl p-16 mb-8 border-2 border-dashed transition-all duration-300 cursor-pointer ${
+                isDragActive
+                  ? 'border-gray-900 bg-gray-100 scale-[1.02]'
+                  : 'border-gray-400 hover:border-gray-900 bg-white hover:shadow-2xl'
+              }`}
+            >
+              <input {...getInputProps()} />
+              <div className="text-center relative z-10">
+                <motion.div
+                  animate={isDragActive ? { scale: [1, 1.2, 1], rotate: [0, 10, -10, 0] } : {}}
+                  transition={{ duration: 0.5 }}
+                  className="relative w-24 h-24 mx-auto mb-6"
+                >
+                  <div className="absolute inset-0 bg-gray-200 rounded-full opacity-50"></div>
+                  <Upload className="w-16 h-16 text-black absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+                </motion.div>
+                <p className="text-2xl font-bold text-gray-800 mb-2">
+                  {isDragActive ? 'Drop your file here' : 'Upload Questionnaire'}
+                </p>
+                <p className="text-gray-600 mb-4">
+                  Drag and drop or click to select a file
+                </p>
+                <div className="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 border-2 border-gray-900 rounded-lg shadow-sm">
+                  <FileText className="w-5 h-5 text-gray-900" />
+                  <span className="text-sm text-gray-900 font-medium">CSV • XLSX • XLS • PDF</span>
+                </div>
               </div>
             </div>
           </motion.div>

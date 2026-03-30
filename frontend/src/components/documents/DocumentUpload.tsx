@@ -39,17 +39,19 @@ export function DocumentUpload({ onUpload, maxFiles = 10, accept }: DocumentUplo
   return (
     <div className="space-y-6">
       <motion.div
-        {...getRootProps()}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className={cn(
-          'relative border-2 border-dashed rounded-lg p-12 text-center cursor-pointer transition-all duration-300',
-          isDragActive
-            ? 'border-gray-900 bg-gray-100 shadow-lg scale-105'
-            : 'border-gray-400 hover:border-gray-900 hover:shadow-md bg-white'
-        )}
       >
-        <input {...getInputProps()} />
+        <div
+          {...getRootProps()}
+          className={cn(
+            'relative border-2 border-dashed rounded-lg p-12 text-center cursor-pointer transition-all duration-300',
+            isDragActive
+              ? 'border-gray-900 bg-gray-100 shadow-lg scale-105'
+              : 'border-gray-400 hover:border-gray-900 hover:shadow-md bg-white'
+          )}
+        >
+          <input {...getInputProps()} />
         <motion.div
           animate={isDragActive ? { scale: [1, 1.1, 1], rotate: [0, 5, -5, 0] } : {}}
           transition={{ duration: 0.5 }}
@@ -81,6 +83,7 @@ export function DocumentUpload({ onUpload, maxFiles = 10, accept }: DocumentUplo
             </div>
           </>
         )}
+        </div>
       </motion.div>
 
       <AnimatePresence>

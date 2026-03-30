@@ -43,7 +43,12 @@ interface Answer {
 
 interface ReviewAnswerProps {
   answer: Answer;
-  onReview: (answerId: string, action: string, finalAnswer?: string, reviewNotes?: string) => Promise<void>;
+  onReview: (
+    answerId: string,
+    action: 'confirmed' | 'rejected' | 'manual_updated' | 'missing_data',
+    finalAnswer?: string,
+    reviewNotes?: string
+  ) => Promise<void>;
   isLoading?: boolean;
 }
 
@@ -55,7 +60,7 @@ export function ReviewAnswer({ answer, onReview, isLoading }: ReviewAnswerProps)
   const [selectedAction, setSelectedAction] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
-  const handleAction = async (action: string) => {
+  const handleAction = async (action: 'confirmed' | 'rejected' | 'manual_updated' | 'missing_data') => {
     const finalAnswer = action === 'manual_updated' ? editedAnswer : undefined;
     await onReview(answer._id, action, finalAnswer, reviewNotes);
     setIsEditing(false);
