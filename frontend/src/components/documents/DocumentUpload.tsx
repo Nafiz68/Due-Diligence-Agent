@@ -39,7 +39,7 @@ export function DocumentUpload({ onUpload, maxFiles = 10, accept }: DocumentUplo
   return (
     <div className="space-y-6">
       <motion.div
-        {...getRootProps()}
+        {...(({ onDrag, ...rest }) => rest)(getRootProps())}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className={cn(
