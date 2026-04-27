@@ -7,9 +7,6 @@ AI-powered full-stack application that automates due diligence questionnaires us
 ![System Overlay](./Screenshot2.png)
 
 
-## 📄 How a RAG Agent Work
-![RAG Agent](rag-agent.png)
-
 ## 🎯 Features
 
 ### 1. **Document Management**
