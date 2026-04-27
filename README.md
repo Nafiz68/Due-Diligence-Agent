@@ -7,19 +7,8 @@ AI-powered full-stack application that automates due diligence questionnaires us
 ![System Overlay](./Screenshot2.png)
 
 
-## 📚 Table of Contents
-
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Prerequisites](#-prerequisites)
-- [Quick Start](#-quick-start)
-- [Architecture](#-architecture)
-- [API Endpoints](#-api-endpoints)
-- [Usage Guide](#-usage-guide)
-- [Testing Examples](#-testing-examples)
-- [Troubleshooting](#-troubleshooting)
-- [Configuration](#-configuration)
-- [Contributing](#-contributing)
+## 📄 How a RAG Agent Work
+![RAG Agent](rag-agent.png)
 
 ## 🎯 Features
 
@@ -849,9 +838,7 @@ Question,Category,Subcategory
 4. Push to the branch
 5. Open a Pull Request
 
-## 📄 License
 
-MIT
 
 ## 🙏 Acknowledgments
 
